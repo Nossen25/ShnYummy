@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "129363453044",
+    "project_id": "nossenshniyami",
+    "storage_bucket": "nossenshniyami.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129363453044:android:4ab4ec74bfe1a6f1ff5d21",
+        "android_client_info": {
+          "package_name": "com.example.nossenshniyami"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLfxHO_fyvvjC_K_fQZefd611xKde4XR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
