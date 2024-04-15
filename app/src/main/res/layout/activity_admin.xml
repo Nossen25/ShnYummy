@@ -5,46 +5,56 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+
+
+
+
+    <TextView
+        android:id="@+id/textesek"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="הוספת עסק"
+        android:textSize="50dp"
+
+
+        >
+
+
+
+    </TextView>
     <EditText
-        android:id="@+id/editTextFullName"
+        android:id="@+id/BusinessName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
+        android:hint="Business Name"
         android:layout_marginTop="100dp"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+
+
+
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/BusinessAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:hint="Business Address" />
 
     <EditText
-        android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address" />
-
-    <EditText
-        android:id="@+id/editTextPhoneNumber"
+        android:id="@+id/PhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone Number"
         android:inputType="phone" />
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnAddBusiness"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up" />
+        android:textAllCaps="false"
+        android:text="Add Business" />
 
 
 

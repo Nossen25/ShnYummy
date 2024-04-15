@@ -3,12 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShoppingFragment">
+    tools:context=".ShoppingFragment"
+    android:id="@+id/frameShopping">
 
-    <!-- TODO: Update blank fragment layout -->
+
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="shopping" />
+        android:id="@+id/credittv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:text="To Buy You Need To Add Credit Card"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:textSize="25dp"
+        >
+
+
+    </TextView>
+
+    <Button
+        android:id="@+id/btnMoveCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Credit Card"
+        android:textColor="#2C4A08"
+        android:background="#1BF4ED"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+
+        />
 
 </FrameLayout>

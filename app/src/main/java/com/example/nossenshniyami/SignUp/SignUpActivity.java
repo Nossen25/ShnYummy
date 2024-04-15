@@ -1,30 +1,32 @@
-package com.example.nossenshniyami;
+package com.example.nossenshniyami.SignUp;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.nossenshniyami.Account.Account;
+import com.example.nossenshniyami.FirebaseHelper.FirebaseHelper;
+import com.example.nossenshniyami.MainActivity;
+import com.example.nossenshniyami.R;
+import com.example.nossenshniyami.Reposetory.Reposetory;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText editTextFullName, editTextEmail, editTextPassword, editTextAddress, editTextPhoneNumber;
-    private Button btnSignUp,btnBack;
+    private Button btnSignUp;
     private FirebaseAuth mAuth;
 
+    private FirebaseHelper firebaseHelper;
 
 
     @Override
@@ -33,14 +35,14 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mAuth = FirebaseAuth.getInstance();
-        btnBack=findViewById(R.id.btnBack);
+
         editTextFullName = findViewById(R.id.editTextFullName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextAddress = findViewById(R.id.editTextAddress);
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
         btnSignUp = findViewById(R.id.btnSignUp);
-
+        firebaseHelper = new FirebaseHelper(this);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,38 +92,25 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
-                // Implement your sign-up logic here
-                // For simplicity, I'm just showing a toast message
-//                Toast.makeText(SignUpActivity.this, "Sign Up clicked\nFull Name: " + fullName +
-//                        "\nEmail: " + email + "\nPassword: " + password +
-//                        "\nAddress: " + address + "\nPhone Number: " + phoneNumber, Toast.LENGTH_SHORT).show();
+                //הרשמה
+                Account account = new Account(email,password);
+                Reposetory reposetory = new Reposetory(firebaseHelper,SignUpActivity.this);
+                Map<String, Object> user = new HashMap<>();
+                                    user.put("FullName", editTextFullName.getText().toString().trim());
+                                    user.put("Email", editTextEmail.getText().toString().trim());
+                                    user.put("Password", editTextPassword.getText().toString().trim());
+                                    user.put("Address", editTextAddress.getText().toString().trim());
+                                    user.put("PhoneNumber", editTextPhoneNumber.getText().toString().trim());
+//
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(SignUpActivity.this, "success", Toast.LENGTH_SHORT).show();
-                                    FirebaseUser user = mAuth.getCurrentUser();
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-            }
-        });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(SignUpActivity.this,MainActivity.class);
+                reposetory.SigNUp(account,user);
+                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                 startActivity(intent);
+
             }
-        });
+});
+
+
     }
     public static boolean containsHebrew(String text) {
         // טווח של תווים בעברית

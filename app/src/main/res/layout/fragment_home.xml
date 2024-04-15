@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frameHome"
+    tools:context=".HomeFragment"
+
+    >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="home" />
 
-</FrameLayout>
+
+
+
+    <ImageButton
+        android:id="@+id/btnOwner"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_admin_panel_settings_24"
+        android:backgroundTint="#2A872D"
+        android:layout_marginLeft="5dp"
+        android:textColor="#063E08"
+
+        />
+    <ImageButton
+        android:id="@+id/btnMapView"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_map_24"
+        android:backgroundTint="#2A872D"
+        android:layout_marginLeft="60dp"
+        android:textColor="#063E08"
+
+        />
+
+
+    <ImageButton
+        android:id="@+id/btnSerch"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_manage_search_24"
+        android:backgroundTint="#2A872D"
+        android:layout_marginLeft="185dp"
+        android:textColor="#063E08"
+        />
+
+    <ImageButton
+        android:id="@+id/btnFilter"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_filter_alt_24"
+        android:backgroundTint="#2A872D"
+        android:layout_marginLeft="320dp"
+        android:textColor="#063E08"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list"
+        android:layout_below="@+id/btnFilter"
+        android:layout_marginTop="30dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/list_item"
+        />
+
+
+</RelativeLayout>
