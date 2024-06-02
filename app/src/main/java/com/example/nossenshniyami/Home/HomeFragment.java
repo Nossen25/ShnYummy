@@ -1,4 +1,4 @@
-package com.example.nossenshniyami;
+package com.example.nossenshniyami.Home;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -21,11 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nossenshniyami.Account.AccountFragment;
 import com.example.nossenshniyami.Admin.AdminActivity;
 import com.example.nossenshniyami.BusinessModel.Business;
+import com.example.nossenshniyami.FirebaseHelper.FirebaseHelper;
+import com.example.nossenshniyami.HelpAboutUs.HelpUs;
+import com.example.nossenshniyami.Main.MainActivity;
+import com.example.nossenshniyami.Maps.MapsActivity;
+import com.example.nossenshniyami.R;
+import com.example.nossenshniyami.Updel.UpdelActivty;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,9 +37,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-private RelativeLayout frameHome;
-    private ImageButton btnMapView,btnSerch,btnFilter;
-    private RecyclerView recyclerView;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,7 +48,7 @@ private RelativeLayout frameHome;
     private String mParam1;
     private String mParam2;
 
-    LinkedList<Fragment> list = new LinkedList<>();
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -79,46 +81,58 @@ private RelativeLayout frameHome;
 
         }
     }
+
+
+    private ImageButton btnMapView;
+    private RecyclerView recyclerView;
     private FirebaseAuth mAuth;
- private ImageButton btnOwner;
+    private HomeMoudle homeMoudle;
+    private MainActivity mainActivity;
+    private ImageButton btnOwner,btnHelp,btnUpdel;
     @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        frameHome=view.findViewById(R.id.frameHome);
-        btnFilter=view.findViewById(R.id.btnFilter);
-        btnMapView=view.findViewById(R.id.btnMapView);
-        btnSerch=view.findViewById(R.id.btnSerch);
-        btnOwner=view.findViewById(R.id.btnOwner);
+
+        mainActivity = (MainActivity) requireActivity();
+
+        homeMoudle = new HomeMoudle(getActivity());
+        btnMapView = view.findViewById(R.id.btnMapView);
+        btnHelp = view.findViewById(R.id.btnHelp);
+        btnOwner = view.findViewById(R.id.btnOwner);
+        btnUpdel= view.findViewById(R.id.btnUpdel);
         recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        List<Business> data = new LinkedList<>();
-        data.add(new Business("איתןעומר והחומר","תל אביב" ,"0524648855",R.drawable.businesspic1));
-        data.add(new Business("רותם קורקוס והלוטוס","תל אביב" ,"5552220258",R.drawable.businesspic1));
-        recyclerView.setAdapter(new BusinessRecyclerViewAdapter(data));
+
+        PrintAllBus();
+
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if(currentUser == null){
-            btnOwner.setVisibility(View.GONE);
+
             movelogin();
         }
-        else
-        {
-            if (currentUser.getEmail().equals("omertol@gmail.com"))
-            {
-                btnOwner.setVisibility(View.VISIBLE);
-                // תציג פה את הכפתור של הוספה
-                // בתור דיפולט תשים את הכפתור בxml, ל gone
+
+
+
+        btnUpdel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), UpdelActivty.class);
+                startActivity(intent);
             }
-            else
-            {
-                btnOwner.setVisibility(View.GONE);
-                //הכפתור לא מוצג
+        });
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), HelpUs.class);
+                startActivity(intent);
             }
-        }
+        });
 
 btnOwner.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -130,13 +144,15 @@ btnOwner.setOnClickListener(new View.OnClickListener() {
         btnMapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(requireActivity(),MapsActivity.class);
+                Intent intent =new Intent(requireActivity(), MapsActivity.class);
                 startActivity(intent);
             }
         });
 
         return view;
     }
+
+//
     public void movelogin()
     {
 
@@ -168,6 +184,18 @@ btnOwner.setOnClickListener(new View.OnClickListener() {
 
         builder.show();
     }
-
+//מדפיס את כל עסקים במסך הבית
+    public void PrintAllBus(){
+        homeMoudle.ReadAllBusData(new FirebaseHelper.ListOfBus() {
+            @Override
+            public void onGotBus(LinkedList<Business> listOfBus) {
+                recyclerView.setAdapter(new BusinessRecyclerViewAdapter(listOfBus, HomeFragment.this));
+            }
+        });
+    }
+//מוסיף לעגלת הקניות
+    public void addToShoppingList(Business business) {
+        mainActivity.addToSoppingCart(business);
+    }
 }
 

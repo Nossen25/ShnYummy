@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/frameHome"
-    tools:context=".HomeFragment"
-
+    tools:context=".Home.HomeFragment"
+    android:background="#DDFBBA"
     >
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,14 +15,15 @@
 
 
     <ImageButton
-        android:id="@+id/btnOwner"
+        android:id="@+id/btnUpdel"
         android:layout_width="43dp"
         android:layout_height="43dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/baseline_admin_panel_settings_24"
+        android:src="@drawable/refresh_user_profile_svgrepo_com"
         android:backgroundTint="#2A872D"
         android:layout_marginLeft="5dp"
         android:textColor="#063E08"
+        android:visibility="visible"
 
         />
     <ImageButton
@@ -39,22 +40,22 @@
 
 
     <ImageButton
-        android:id="@+id/btnSerch"
+        android:id="@+id/btnHelp"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:src="@drawable/baseline_manage_search_24"
+        android:src="@drawable/aboutus_vector"
         android:backgroundTint="#2A872D"
         android:layout_marginLeft="185dp"
         android:textColor="#063E08"
         />
 
     <ImageButton
-        android:id="@+id/btnFilter"
+        android:id="@+id/btnOwner"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:src="@drawable/baseline_filter_alt_24"
+        android:src="@drawable/add_business_card_symbol_svgrepo_com"
         android:backgroundTint="#2A872D"
         android:layout_marginLeft="320dp"
         android:textColor="#063E08"
@@ -64,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list"
-        android:layout_below="@+id/btnFilter"
+        android:layout_below="@+id/btnUpdel"
         android:layout_marginTop="30dp"
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/list_item"

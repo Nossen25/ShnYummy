@@ -3,8 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#DDFBBA"
+    >
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Sign In"
+    android:textSize="25sp"
+    android:textStyle="bold"
+    android:layout_marginBottom="12dp"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+    >
 
+</TextView>
     <EditText
         android:id="@+id/editTextFullName"
         android:layout_width="match_parent"
@@ -44,7 +57,14 @@
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up" />
+        android:text="Sign Up"
+        android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Return Home"
+        android:textAllCaps="false"/>
 
 
 

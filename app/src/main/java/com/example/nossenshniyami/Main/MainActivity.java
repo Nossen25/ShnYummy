@@ -1,4 +1,4 @@
-package com.example.nossenshniyami;
+package com.example.nossenshniyami.Main;
 
 import android.os.Bundle;
 
@@ -8,11 +8,19 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.nossenshniyami.Account.AccountFragment;
+import com.example.nossenshniyami.BusinessModel.Business;
+import com.example.nossenshniyami.Home.HomeFragment;
+import com.example.nossenshniyami.R;
+import com.example.nossenshniyami.Shopping.ShoppingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottom_navigation;
+
+    private HomeFragment homeFragment;
+    private AccountFragment accountFragment;
+    private ShoppingFragment shoppingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,23 +29,24 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new HomeFragment());
         bottom_navigation = findViewById(R.id.bottom_navigation);
         bottom_navigation.setSelectedItemId(R.id.Home);
-
-
+        homeFragment = new HomeFragment();
+        accountFragment = new AccountFragment();
+        shoppingFragment = new ShoppingFragment();
         bottom_navigation.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.Account) {
 
-                replaceFragment(new AccountFragment());
+                replaceFragment(accountFragment);
             } else if (itemId == R.id.Home) {
 
-                replaceFragment(new HomeFragment());
+                replaceFragment(homeFragment);
             } else if (itemId == R.id.Cart) {
-                replaceFragment(new ShoppingFragment());
+                replaceFragment(shoppingFragment);
             }
             return true;
         });
 
-        //יקבל מהקרדיט קרד אינטנט ויעביר לאקונט פרגמט ואז יציג הערה
+
 
     }
 
@@ -46,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment); // Use the correct container view ID
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
 
     }
@@ -56,4 +65,10 @@ public class MainActivity extends AppCompatActivity {
         bottom_navigation.setSelectedItemId(R.id.Account);
     }
 
+
+    public void addToSoppingCart(Business business)
+    {
+
+        shoppingFragment.addToShoppingCart(business);
+    }
 }

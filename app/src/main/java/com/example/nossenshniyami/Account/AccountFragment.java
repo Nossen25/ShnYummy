@@ -12,11 +12,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.nossenshniyami.FirebaseHelper.FirebaseHelper;
-import com.example.nossenshniyami.MainActivity;
+import com.example.nossenshniyami.Main.MainActivity;
 import com.example.nossenshniyami.R;
 import com.example.nossenshniyami.Reposetory.Reposetory;
 import com.example.nossenshniyami.SignUp.SignUpActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -29,10 +28,7 @@ public class AccountFragment extends Fragment {
     private FirebaseAuth mAuth;
     private View acfragmetv;
     private EditText editTextEmail,editTextPassword;
-
-    private BottomNavigationView bottomNavigationView;
-    boolean flag = true;
-private  AccountMoudle accountMoudle ;
+    private  AccountMoudle accountMoudle ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,17 +73,16 @@ private  AccountMoudle accountMoudle ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-//        return  inflater.inflate(R.layout.fragment_account, container, false);
         acfragmetv = inflater.inflate(R.layout.fragment_account, container, false);
         btnSignUp = acfragmetv.findViewById(R.id.btnSignUp);
         btnLogin=acfragmetv.findViewById(R.id.btnLogin);
         editTextEmail=acfragmetv.findViewById(R.id.editTextEmail);
         btnSignOut=acfragmetv.findViewById(R.id.btnSignOut);
+        editTextPassword=acfragmetv.findViewById(R.id.editTextPassword);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseHelper firebaseHelper=new FirebaseHelper(requireContext());
+        FirebaseHelper firebaseHelper=new FirebaseHelper();
         accountMoudle= new AccountMoudle(mAuth);
+
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -95,51 +90,45 @@ private  AccountMoudle accountMoudle ;
 
                 if (accountMoudle.CanLogIn())
                 {
-                    Toast.makeText(requireActivity(), "You need to login to logout", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "אתה צריך להתחבר בשביל להתנתק", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     mAuth.signOut();
-                    Toast.makeText(requireActivity(), "Logout Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "התנתקות בוצעה בהצלחה", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Handle login button click
+
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
-
-                // Implement your login logic here
-                // For example, you can check credentials and navigate to the next screen
-                // For simplicity, I'm just showing a toast message
-                if(editTextEmail.getText().toString().equals(""))
-                {
-                    editTextEmail.setError("אסור להשאיר ריק");
-                }
-                if(editTextPassword.getText().toString().equals(""))
-                {
-                    editTextPassword.setError("אסור להשאיר ריק");
-                }
-//                if(editTextPassword.getText().toString()!=("")&&editTextEmail.getText().toString()!=("")) {
-//                    Toast.makeText(requireActivity(), "Login clicked\nEmail: " + email + "\nPassword: " + password, Toast.LENGTH_SHORT).show();
-//                }
-
                 Account account=new Account(email,password);
-                Reposetory reposetory =new Reposetory(firebaseHelper,requireContext());
-                reposetory.signIN(account, new FirebaseHelper.Completed() {
-                    @Override
-                    public void onComplete(Boolean flag) {
-                        if(flag)
-                        {
-                            Intent intent = new Intent(requireActivity(), MainActivity.class);
-                            startActivity(intent);
-                            Toast.makeText(requireContext(), "Sign in Seccsesful", Toast.LENGTH_SHORT).show();
-                        }
+                if (accountMoudle.LogInCheck(account,requireContext()))
+                {
+                    Reposetory reposetory =new Reposetory(firebaseHelper,requireContext());
+                    reposetory.signIN(account, new FirebaseHelper.Completed() {
+                        @Override
+                        public void onComplete(Boolean flag) {
+                            if(flag)
+                            {
+                                Intent intent = new Intent(requireActivity(), MainActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(requireContext(), "ההתחברות בוצעה בהצלחה", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(requireContext(), "אימייל או סיסמא לא נכונים", Toast.LENGTH_SHORT).show();
+                            }
 
-                    }
-                });
+                        }
+                    });
+                }
+
+
             }
         });
 
@@ -147,14 +136,14 @@ private  AccountMoudle accountMoudle ;
 
 
 
-        editTextPassword=acfragmetv.findViewById(R.id.editTextPassword);
+
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(accountMoudle.CanLogOut())
                 {
-                    Toast.makeText(requireActivity(), "You need to logout to signup ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireActivity(), "צריך להתנתק בכדי להירשם ", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {

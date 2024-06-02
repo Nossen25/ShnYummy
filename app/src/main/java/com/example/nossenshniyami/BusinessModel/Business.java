@@ -4,14 +4,10 @@ public class Business {
     private String name;
     private String address;
     private String phoneNumber;
-    private int imgRes;
+    private String Info; //  תקציר בקצרה של מידע על החנות מה הם מוכרים וכד
+    private String imageURL; // מכיל את URL של התמונה בסטורג
 
-    public Business(String name, String address, String phoneNumber, int imgRes) {
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.imgRes = imgRes;
-    }
+
 
     public Business(){}
 
@@ -35,15 +31,20 @@ public class Business {
         return phoneNumber;
     }
 
+    public String geStInfo() {
+        return this.Info;
+    }
+
+
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getImgRes() {
-        return imgRes;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImgRes(int imgRes) {
-        this.imgRes = imgRes;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }

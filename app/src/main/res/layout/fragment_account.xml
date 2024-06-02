@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Account.AccountFragment">
+    tools:context=".Account.AccountFragment"
+    android:background="#DDFBBA"
+    >
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,6 +13,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            >
+
+        </TextView>
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -41,8 +55,8 @@
             android:layout_marginTop="8dp"
             android:text="Don't have an account? Sign up here!"
             android:textColor="#0000FF"
-            android:background="#FFFFFF"
-            android:textAllCaps="false"
+            android:background="#DDFBBA"
+
            />
 
         <Button
@@ -52,7 +66,7 @@
             android:layout_marginTop="8dp"
             android:text="Log Out here :)"
             android:textColor="#0000FF"
-            android:background="#FFFFFF"
+            android:background="#DDFBBA"
             android:textAllCaps="false"
             />
 
