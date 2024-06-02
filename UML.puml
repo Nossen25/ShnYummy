@@ -1,0 +1,204 @@
+@startuml
+class Account {
+- String email
+}
+
+class UpdelMoudle {
+- Reposetory reposetory
+- FirebaseHelper firebaseHelper
+}
+
+class Business {
+- String name
+- String address
+- String phoneNumber
+- String Info
+- String imageURL
+}
+
+class AdminMoudle {
+- boolean isButtonClicked
+}
+
+class MainActivity {
++ {static} boolean creditonoff
+- BottomNavigationView bottom_navigation
+- HomeFragment homeFragment
+- AccountFragment accountFragment
+- ShoppingFragment shoppingFragment
+}
+
+class Reposetory {
+~ FirebaseHelper firebaseHelper
+~ Context context
+}
+
+class HelpUs {
+- Button aboutUsButton
+- TextView infoTextView
+}
+
+class HomeMoudle {
+- Reposetory rep
+~ Context context
+}
+
+class HomeFragment {
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
+- ImageButton btnMapView
+- RecyclerView recyclerView
+- FirebaseAuth mAuth
+- HomeMoudle homeMoudle
+- MainActivity mainActivity
+- ImageButton btnOwner
+}
+
+class AccountFragment {
+- Button btnSignUp
+- FirebaseAuth mAuth
+- View acfragmetv
+- EditText editTextEmail
+- AccountMoudle accountMoudle
+- {static} String ARG_PARAM1
+- {static} String ARG_PARAM2
+- String mParam1
+- String mParam2
+}
+
+class CreditCardActivity {
+- EditText editTextFullName
+- Button btnAddCredit
+~ FirebaseHelper firebaseHelper
+- {static} boolean creditOnff
+- FirebaseAuth mAuth
+}
+
+class BusinessRecyclerViewAdapter {
+- FirebaseStorage firebaseStorage
+- FirebaseHelper firebaseHelper
+- List<Business> mValues
+- OnBusinessItemClickListener listener
+- HomeFragment fragment
+}
+
+interface BusinessRecyclerViewAdapter$OnBusinessItemClickListener {
+}
+class BusinessRecyclerViewAdapter$ViewHolder {
++ Business mItem
++ ImageView img
++ TextView tvName
+}
+
+class AdminActivity {
+- Button btnAddBusiness
+- Button btnAddPhoto
+- ImageView imageView
+- {static} Bitmap photo
+- {static} int CAMERA_REQUEST_CODE
+- {static} int MY_PERMISSIONS_REQUEST_SEND_SMS
+- EditText BusinessName
+~ ActivityResultLauncher<Intent> CameraResultLauncher
+}
+
+class SignUpActivity {
+- EditText editTextFullName
+- Button btnSignUp
+- FirebaseHelper firebaseHelper
+}
+
+class ShoppingListAdapter {
+- List<Business> list
+- Context context
+}
+
+class ShoppingListAdapter$ViewHolder {
++ Business mItem
++ ImageView img
++ TextView tvName
+}
+
+class ShoppingMoudle {
+}
+class MapsActivity {
+- FirebaseFirestore db
+- GoogleMap mMap
+- ActivityMapsBinding binding
+- ImageButton btnBackH
+- FusedLocationProviderClient fusedLocationClient
+- {static} int REQUEST_LOCATION_PERMISSION
+}
+
+class UpdelActivty {
+- DatabaseReference mDatabase
+- FirebaseAuth firebaseAuth
+- EditText editTextFullName
+}
+
+class ShoppingFragment {
+- Button btnMoveCredit
+- TextView credittv
+- FrameLayout frameLayout
+- {static} boolean creditOnff
+- RecyclerView recyclerView
+- List<Business> shoppingList
+- FirebaseAuth mAuth
+}
+
+class AccountMoudle {
+~ FirebaseAuth firebaseAuth
+}
+
+class FirebaseHelper {
+~ FirebaseFirestore firestore
+~ FirebaseAuth mAuth
+~ Context context
+- String info
+}
+
+interface FirebaseHelper$userFound {
+}
+interface FirebaseHelper$Completed {
+}
+interface FirebaseHelper$ListOfBus {
+}
+interface FirebaseHelper$InfoCallback {
+}
+interface FirebaseHelper$whenDone {
+}
+class CreditCardModule {
+}
+class SignUpMoudle {
+- String fullname
+- Context context
+}
+
+
+
+AppCompatActivity <|-- MainActivity
+AppCompatActivity <|-- HelpUs
+Fragment <|-- HomeFragment
+Fragment <|-- AccountFragment
+OnClickListener <|.. CreditCardActivity
+AppCompatActivity <|-- CreditCardActivity
+Adapter <|-- BusinessRecyclerViewAdapter
+BusinessRecyclerViewAdapter +.. BusinessRecyclerViewAdapter$OnBusinessItemClickListener
+BusinessRecyclerViewAdapter +.. BusinessRecyclerViewAdapter$ViewHolder
+ViewHolder <|-- BusinessRecyclerViewAdapter$ViewHolder
+AppCompatActivity <|-- AdminActivity
+AppCompatActivity <|-- SignUpActivity
+Adapter <|-- ShoppingListAdapter
+ShoppingListAdapter +.. ShoppingListAdapter$ViewHolder
+ViewHolder <|-- ShoppingListAdapter$ViewHolder
+OnMapReadyCallback <|.. MapsActivity
+FragmentActivity <|-- MapsActivity
+AppCompatActivity <|-- UpdelActivty
+Fragment <|-- ShoppingFragment
+FirebaseHelper +.. FirebaseHelper$userFound
+FirebaseHelper +.. FirebaseHelper$Completed
+FirebaseHelper +.. FirebaseHelper$ListOfBus
+FirebaseHelper +.. FirebaseHelper$InfoCallback
+FirebaseHelper +.. FirebaseHelper$whenDone
+@enduml
